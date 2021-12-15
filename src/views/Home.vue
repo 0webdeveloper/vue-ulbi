@@ -1,18 +1,60 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+      <post-form @addPost="addPost"/>
+      <post-list :posts="posts"/>
+
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import PostForm from '@/components/PostForm'
+import PostList from '@/components/PostList'
 
 export default {
   name: 'Home',
+  data() {
+    return {
+      posts: [{
+          id: 1,
+          title: 'Описание',
+          body: 'Описание поста'
+        },
+        {
+          id: 2,
+          title: 'Описание 2',
+          body: 'Описание поста 2'
+        },
+        {
+          id: 3,
+          title: 'Описание 3',
+          body: 'Описание поста 3'
+        }
+      ]
+    }
+  },
+  methods: {
+    addPost(data) {
+      const newPost = {
+        id: Date.now(),
+        title: data.title,
+        body: data.body
+      }
+      this.posts.push(newPost)
+    }
+  },
   components: {
-    HelloWorld
+    PostForm,
+    PostList
   }
 }
 </script>
+
+PostList
+<style scope>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+</style>
