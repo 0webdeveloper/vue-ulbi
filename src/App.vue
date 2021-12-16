@@ -1,12 +1,29 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+  <div id="app" :class="{dark: isDark}">
+    <div class="container">
+      <div id="nav">
+        <router-link to="/">Home</router-link> |
+        <router-link to="/about">About</router-link>
+      </div>
+      <color-theme @isDark="isDark = !isDark" />
+      <router-view />
     </div>
-    <router-view/>
   </div>
 </template>
+
+<script>
+import ColorTheme from '@/components/ColorTheme'
+export default {
+  data() {
+    return {
+      isDark: false
+    }
+  },
+  components: {
+    ColorTheme
+  }
+}
+</script>
 
 <style lang="scss">
 #app {
@@ -15,6 +32,11 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  min-height: 100vh;
+  &.dark {
+    background: #282C34;
+    color: #fff;
+  }
 }
 
 #nav {

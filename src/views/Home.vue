@@ -1,9 +1,7 @@
 <template>
   <div class="home">
-    <div class="container">
       <post-form @addPost="addPost"/>
       <post-list :posts="posts"/>
-    </div>
   </div>
 </template>
 
@@ -44,8 +42,7 @@ export default {
     }
   },
   components: {
-    PostForm,
-    PostList
+    PostForm, PostList
   }
 }
 </script>
