@@ -1,8 +1,9 @@
 <template>
   <div class="home">
+    <div class="container">
       <post-form @addPost="addPost"/>
       <post-list :posts="posts"/>
-
+    </div>
   </div>
 </template>
 
@@ -55,6 +56,12 @@ PostList
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+  }
+  .container {
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 15px;
   }
 
 </style>

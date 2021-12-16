@@ -1,33 +1,38 @@
 <template>
-    <div>
+    <div class="post">
         <div>
-            <div class="post">
-                <div><strong>Название</strong> {{post.title}}</div>
-                <div><strong>Описание</strong> {{post.body}}</div>
-            </div>
+            <div><strong>Название</strong> {{post.title}}</div>
+            <div><strong>Описание</strong> {{post.body}}</div>
         </div>
         <div class='post__btns'>
-            <button>Удалить</button>
+            <my-button>Удалить</my-button>
         </div>
         
     </div>
 </template>
 
 <script>
+    import MyButton from '@/components/UI/MyButton'
     export default {
         props: {
             post: {
                 type: Object,
                 required: true
             }
+        },
+        components: {
+            MyButton
         }
     }
 </script>
 
 <style scoped>
   .post {
-    border: 2px solid rgb(196, 47, 255);
-    margin: 0 15px 15px 15px;
+    border: 2px solid teal;
+    margin-bottom: 15px;
     padding: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
   }
 </style>
