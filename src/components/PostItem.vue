@@ -4,7 +4,7 @@
             <div><strong>Название</strong> {{post.title}}</div>
             <div><strong>Описание</strong> {{post.body}}</div>
         </div>
-        <div class='post__btns'>
+        <div class='post__btns' @click="$emit('removeTodo', post.id)">
             <my-button>Удалить</my-button>
         </div>
         

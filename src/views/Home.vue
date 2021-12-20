@@ -1,7 +1,7 @@
 <template>
   <div class="home">
       <post-form @addPost="addPost"/>
-      <post-list :posts="posts"/>
+      <post-list :posts="posts" @remTodo='removeTod'/>
   </div>
 </template>
 
@@ -39,6 +39,9 @@ export default {
         body: data.body
       }
       this.posts.push(newPost)
+    },
+    removeTod(post) {
+      this.posts = this.posts.filter(p=> p.id !== post);
     }
   },
   components: {

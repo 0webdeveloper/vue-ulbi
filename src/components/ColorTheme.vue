@@ -23,8 +23,7 @@ export default {
     methods: {
         changeColor() {
             this.color = this.color ? false : true;
-            console.log(this.color);
-            
+
             this.$emit('isDark', this.color)
             this.colorName = this.colorName == 'Темная тема' ? 'Светлая тема' : 'Темная тема'
         }
