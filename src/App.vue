@@ -33,6 +33,7 @@ export default {
   text-align: center;
   color: #2c3e50;
   min-height: 100vh;
+  transition: background .5s ease-in-out, color .5s ease-in-out;
   &.dark {
     background: #282C34;
     color: #fff;

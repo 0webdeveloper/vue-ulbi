@@ -20,10 +20,12 @@ export default {
     },
     methods: {
       addPost() {
-        this.$emit('addPost', this.post);
+        if(this.post.title.trim() && this.post.body.trim()) {
+          this.$emit('addPost', this.post);
 
           this.post.title = '';
           this.post.body = '';
+        }
       }
     },
     components: {
