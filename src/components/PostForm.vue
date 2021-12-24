@@ -20,12 +20,13 @@ export default {
     },
     methods: {
       addPost() {
-        if(this.post.title.trim() && this.post.body.trim()) {
+        const {title, body} = this.post;
+        if(title.trim() && body.trim()) {
           this.$emit('addPost', this.post);
-
-          this.post.title = '';
-          this.post.body = '';
         }
+
+        this.post.title = '';
+        this.post.body = '';
       }
     },
     components: {

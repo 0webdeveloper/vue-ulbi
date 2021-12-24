@@ -1,34 +1,34 @@
 <template>
   <div class="home">
+    <h1>Страница с постами</h1>
+        <my-button
+          @click.native='showDialog'
+        >Создать пост</my-button>
+
+    <my-dialog :show='dialogVisible' @value='dialogVisible = false'>
       <post-form @addPost="addPost"/>
-      <post-list :posts="posts" @remTodo='removeTod'/>
+    </my-dialog>
+
+      <post-list :posts="posts" @remTodo='removeTodo'/>
   </div>
 </template>
 
 <script>
 import PostForm from '@/components/PostForm'
 import PostList from '@/components/PostList'
+import MyButton from '@/components/UI/MyButton'
+import MyDialog from '@/components/UI/MyDialog'
 
 export default {
   name: 'Home',
   data() {
     return {
-      posts: [{
-          id: 1,
-          title: 'Описание',
-          body: 'Описание поста'
-        },
-        {
-          id: 2,
-          title: 'Описание 2',
-          body: 'Описание поста 2'
-        },
-        {
-          id: 3,
-          title: 'Описание 3',
-          body: 'Описание поста 3'
-        }
-      ]
+      posts: [
+        { id: 1, title: 'Описание', body: 'Описание поста'},
+        { id: 2, title: 'Описание 2', body: 'Описание поста 2'},
+        { id: 3, title: 'Описание 3', body: 'Описание поста 3'}
+      ],
+      dialogVisible: true,
     }
   },
   methods: {
@@ -40,12 +40,16 @@ export default {
       }
       this.posts.push(newPost)
     },
-    removeTod(post) {
+    removeTodo(post) {
       this.posts = this.posts.filter(p=> p.id !== post);
+    },
+    showDialog() {
+      console.log('click showDialog')
+      this.dialogVisible = true;
     }
   },
   components: {
-    PostForm, PostList
+    PostForm, PostList, MyButton, MyDialog
   }
 }
 </script>

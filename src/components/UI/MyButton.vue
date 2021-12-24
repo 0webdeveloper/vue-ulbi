@@ -1,7 +1,10 @@
 <template>
-  <button>
+  <div>
+    <button>
       <slot></slot>
-  </button>
+    </button>
+  </div>
+
 </template>
 
 <script>
