@@ -28,7 +28,7 @@ export default {
         { id: 2, title: 'Описание 2', body: 'Описание поста 2'},
         { id: 3, title: 'Описание 3', body: 'Описание поста 3'}
       ],
-      dialogVisible: true,
+      dialogVisible: false,
     }
   },
   methods: {
@@ -38,13 +38,13 @@ export default {
         title: data.title,
         body: data.body
       }
-      this.posts.push(newPost)
+      this.posts.push(newPost);
+      this.dialogVisible = false;
     },
     removeTodo(post) {
       this.posts = this.posts.filter(p=> p.id !== post);
     },
     showDialog() {
-      console.log('click showDialog')
       this.dialogVisible = true;
     }
   },
