@@ -2,7 +2,7 @@
   <div class="home">
     <h1>Страница с постами</h1>
         <my-button
-          @click.native='showDialog'
+          @click.native='showDialog' class='forTest'
         >Создать пост</my-button>
 
     <my-dialog :show='dialogVisible' @value='dialogVisible = false'>
