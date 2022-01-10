@@ -1,6 +1,6 @@
 <template>
     <div class="post">
-        <div>
+        <div class="post__body">
             <div><strong>Название</strong> {{post.title}}</div>
             <div><strong>Описание</strong> {{post.body}}</div>
         </div>
@@ -34,5 +34,8 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+  }
+  .post__body{
+      text-align: left;
   }
 </style>

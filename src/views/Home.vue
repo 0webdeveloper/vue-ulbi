@@ -1,15 +1,31 @@
 <template>
   <div class="home">
     <h1>Страница с постами</h1>
-        <my-button
-          @click.native='showDialog' class='forTest'
-        >Создать пост</my-button>
 
+    <div class="app_btns">
+      <my-button
+        @click.native='showDialog' class='forTest'
+      >
+        Создать пост
+      </my-button>
+      <my-select
+        v-model="selectedSort"
+        :options="sortedOptions"
+        @fromMySelect="selectProp"/>
+
+        <app-switch classes="is-warning" v-model="value" checked>Test</app-switch>
+    </div>
+        
     <my-dialog :show='dialogVisible' @value='dialogVisible = false'>
       <post-form @addPost="addPost"/>
     </my-dialog>
 
-      <post-list :posts="posts" @remTodo='removeTodo'/>
+      <post-list 
+      :posts="posts"
+      @remTodo='removeTodo'
+      v-if="!isPostLoading"/>
+
+      <div v-else>Идет загрузка....</div>
   </div>
 </template>
 
@@ -18,17 +34,25 @@ import PostForm from '@/components/PostForm'
 import PostList from '@/components/PostList'
 import MyButton from '@/components/UI/MyButton'
 import MyDialog from '@/components/UI/MyDialog'
+import axios from 'axios'
+import MySelect from '@/components/UI/MySelect'
+import Switch from '@/components/Switch'
 
 export default {
   name: 'Home',
   data() {
     return {
-      posts: [
-        { id: 1, title: 'Описание', body: 'Описание поста'},
-        { id: 2, title: 'Описание 2', body: 'Описание поста 2'},
-        { id: 3, title: 'Описание 3', body: 'Описание поста 3'}
-      ],
+      posts: [],
       dialogVisible: false,
+      isPostLoading: false,
+      selectedSort: '',
+      sortedOptions: [
+        {value: 'title', name: 'По названию'},
+        {value: 'body', name: 'По содержимому'},
+        {value: 'id', name: 'По id'}
+      ],
+                      value: false,
+                text: ''
     }
   },
   methods: {
@@ -46,11 +70,35 @@ export default {
     },
     showDialog() {
       this.dialogVisible = true;
+    },
+    async fetchPosts() {
+      try {
+        this.isPostLoading = true
+          const responce = await axios.get('https://jsonplaceholder.typicode.com/posts?_limit=10');
+          this.posts = responce.data;
+      } catch(e) {
+        alert('error');
+      }
+       finally {
+        this.isPostLoading = false;
+      }
+    },
+    selectProp(value) {
+      this.selectedSort = value;
     }
   },
+  mounted() {
+    this.fetchPosts();
+  },
   components: {
-    PostForm, PostList, MyButton, MyDialog
-  }
+    PostForm, PostList, MyButton, MyDialog, MySelect,
+    'app-switch': Switch
+  },
+          watch: {
+            value(val) {
+                this.text = val ? 'Yes' : 'No'
+            }
+        }
 }
 </script>
 
@@ -66,6 +114,11 @@ PostList
     margin-left: auto;
     margin-right: auto;
     padding: 0 15px;
+  }
+  .app_btns {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 
 </style>
