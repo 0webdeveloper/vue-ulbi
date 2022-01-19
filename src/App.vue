@@ -40,6 +40,13 @@ export default {
   }
 }
 
+.container {
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 15px;
+}
+
 #nav {
   padding: 30px;
 
