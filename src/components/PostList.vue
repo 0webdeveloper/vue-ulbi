@@ -12,7 +12,7 @@
         </transition-group>
 
     </div>
-      <h3 v-else>Список постов пуст</h3>
+      <h3 v-else class='red-color-txt'>Список постов пуст</h3>
     </div>
 
 </template>
@@ -53,5 +53,8 @@ export default {
   }
   .post-list-move {
     transition: transform .8s ease;
+  }
+  .red-color-txt {
+    color: #cc0000;
   }
 </style>

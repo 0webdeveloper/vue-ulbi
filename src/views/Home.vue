@@ -3,6 +3,7 @@
     <h1>Страница с постами</h1>
 
     <my-input
+      class='full-width'
       v-model='searchQuery'
       placeholder='Поиск...'
     />
@@ -41,6 +42,17 @@
       v-if='!isPostLoading' />
 
     <div v-else>Идет загрузка....</div>
+    <div class='page__wrapper'>
+      <div
+        v-for='pageNumber in totalPage'
+        :key='pageNumber'
+        class='page__wrapper-page'
+        :class="{
+          'current-page': page === pageNumber
+        }"
+        @click='changePage(pageNumber)'
+      >{{ pageNumber }}</div>
+    </div>
   </div>
 </template>
 
@@ -66,7 +78,7 @@ export default {
       searchQuery: '',
       totalPage: 0,
       page: 1,
-      pageLimit: 10,
+      Limit: 10,
       sortedOptions: [
         {value: 'title', name: 'По названию'},
         {value: 'body', name: 'По содержимому'},
@@ -93,16 +105,20 @@ export default {
     showDialog() {
       this.dialogVisible = true
     },
+    changePage(pageNumber) {
+      console.log(pageNumber)
+        this.page = pageNumber;
+    },
     async fetchPosts() {
       try {
         this.isPostLoading = true
         const responce = await axios.get('https://jsonplaceholder.typicode.com/posts', {
           params: {
             _page: this.page,
-            _limit: this.pageLimit
+            _limit: this.Limit
           }
         })
-        this.totalPage = Math.ceil( responce.headers['x-total-count'] / this.pageLimit)
+        this.totalPage = Math.ceil( responce.headers['x-total-count'] / this.Limit)
         this.posts = responce.data
       } catch (e) {
         alert('error')
@@ -159,5 +175,20 @@ PostList
   justify-content: space-between;
   align-items: center;
 }
-
+.full-width {
+  width: 100%;
+  margin: 20px 0;
+}
+.page__wrapper {
+  display: flex;
+  margin: 15px 0;
+}
+.page__wrapper-page {
+  border: 1px solid #2c3e50;
+  padding: 10px;
+  margin-right: 5px;
+}
+.current-page {
+  border: 2px solid teal;
+}
 </style>
