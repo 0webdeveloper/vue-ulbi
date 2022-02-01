@@ -142,6 +142,9 @@ export default {
   watch: {
     value(val) {
       this.text = val ? 'Yes' : 'No'
+    },
+    page() {
+      this.fetchPosts();
     }
     // selectedSort(newValue) {
     //   this.posts.sort((post1, post2) => {
