@@ -42,7 +42,10 @@
       v-if='!isPostLoading' />
 
     <div v-else>Идет загрузка....</div>
+
     <div class='observer' ref='observer'></div>
+
+
 <!--    <div class='page__wrapper'>-->
 <!--      <div-->
 <!--        v-for='pageNumber in totalPage'-->
@@ -153,11 +156,8 @@ export default {
       threshold: 1.0
     }
     const callback = (entries, observer) => {
-      // if (entries[0].isIntersecting) {
-      //   this.loadMorePosts();
-      // }
       entries.forEach(entry => {
-          if (entry.isIntersecting & this.page < this.totalPage) {
+          if (entry.isIntersecting && this.page < this.totalPage) {
             this.loadMorePosts();
           }
       });
