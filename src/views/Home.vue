@@ -42,17 +42,18 @@
       v-if='!isPostLoading' />
 
     <div v-else>Идет загрузка....</div>
-    <div class='page__wrapper'>
-      <div
-        v-for='pageNumber in totalPage'
-        :key='pageNumber'
-        class='page__wrapper-page'
-        :class="{
-          'current-page': page === pageNumber
-        }"
-        @click='changePage(pageNumber)'
-      >{{ pageNumber }}</div>
-    </div>
+    <div class='observer' ref='observer'></div>
+<!--    <div class='page__wrapper'>-->
+<!--      <div-->
+<!--        v-for='pageNumber in totalPage'-->
+<!--        :key='pageNumber'-->
+<!--        class='page__wrapper-page'-->
+<!--        :class="{-->
+<!--          'current-page': page === pageNumber-->
+<!--        }"-->
+<!--        @click='changePage(pageNumber)'-->
+<!--      >{{ pageNumber }}</div>-->
+<!--    </div>-->
   </div>
 </template>
 
@@ -105,10 +106,10 @@ export default {
     showDialog() {
       this.dialogVisible = true
     },
-    changePage(pageNumber) {
-      console.log(pageNumber)
-        this.page = pageNumber;
-    },
+    // changePage(pageNumber) {
+    //   console.log(pageNumber)
+    //     this.page = pageNumber;
+    // },
     async fetchPosts() {
       try {
         this.isPostLoading = true
@@ -126,12 +127,43 @@ export default {
         this.isPostLoading = false
       }
     },
+    async loadMorePosts() {
+      try {
+        this.page += 1;
+        const responce = await axios.get('https://jsonplaceholder.typicode.com/posts', {
+          params: {
+            _page: this.page,
+            _limit: this.Limit
+          }
+        })
+        this.totalPage = Math.ceil( responce.headers['x-total-count'] / this.Limit)
+        this.posts = [...this.posts, ...responce.data]
+      } catch (e) {
+        alert('error')
+      }
+    },
     selectProp(value) {
       this.selectedSort = value
     }
   },
   mounted() {
-    this.fetchPosts()
+    this.fetchPosts();
+    const options = {
+      rootMargin: '0px',
+      threshold: 1.0
+    }
+    const callback = (entries, observer) => {
+      // if (entries[0].isIntersecting) {
+      //   this.loadMorePosts();
+      // }
+      entries.forEach(entry => {
+          if (entry.isIntersecting & this.page < this.totalPage) {
+            this.loadMorePosts();
+          }
+      });
+    };
+    const observer = new IntersectionObserver(callback, options);
+    observer.observe(this.$refs.observer);
   },
   components: {
     PostForm, PostList, MyButton, MyDialog, MySelect,
@@ -143,9 +175,9 @@ export default {
     value(val) {
       this.text = val ? 'Yes' : 'No'
     },
-    page() {
-      this.fetchPosts();
-    }
+    // page() {
+    //   this.fetchPosts();
+    // }
     // selectedSort(newValue) {
     //   this.posts.sort((post1, post2) => {
     //     return post1[newValue]?.localeCompare(post2[newValue])
@@ -193,5 +225,8 @@ PostList
 }
 .current-page {
   border: 2px solid teal;
+}
+.observer {
+  height: 30px;
 }
 </style>

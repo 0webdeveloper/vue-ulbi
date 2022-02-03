@@ -5,6 +5,9 @@
             <div><strong>Название</strong> {{post.title}}</div>
             <div><strong>Описание</strong> {{post.body}}</div>
         </div>
+        <div class='post__btns post__btns-open' @click="$router.push(`/posts/${post.id}`)">
+          <my-button>Открыть</my-button>
+        </div>
         <div class='post__btns' @click="$emit('removeTodo', post.id)">
             <my-button>Удалить</my-button>
         </div>
@@ -38,5 +41,11 @@
   }
   .post__body{
       text-align: left;
+  }
+  .post__btns {
+    margin-left: 10px;
+  }
+  .post__btns-open {
+    margin-left: auto;
   }
 </style>
