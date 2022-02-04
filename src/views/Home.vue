@@ -42,10 +42,16 @@
       v-if='!isPostLoading' />
 
     <div v-else>Идет загрузка....</div>
+<<<<<<< HEAD
 
     <div class='observer' ref='observer'></div>
 
 
+=======
+    <div ref='observer' class='observer'>
+
+    </div>
+>>>>>>> 9d384aa154f05ca5a32cc05bbd120af31e98f54f
 <!--    <div class='page__wrapper'>-->
 <!--      <div-->
 <!--        v-for='pageNumber in totalPage'-->
@@ -140,7 +146,11 @@ export default {
           }
         })
         this.totalPage = Math.ceil( responce.headers['x-total-count'] / this.Limit)
+<<<<<<< HEAD
         this.posts = [...this.posts, ...responce.data]
+=======
+        this.posts = [...this.posts, ...resonce.data]
+>>>>>>> 9d384aa154f05ca5a32cc05bbd120af31e98f54f
       } catch (e) {
         alert('error')
       }
@@ -156,11 +166,17 @@ export default {
       threshold: 1.0
     }
     const callback = (entries, observer) => {
+<<<<<<< HEAD
       entries.forEach(entry => {
           if (entry.isIntersecting && this.page < this.totalPage) {
             this.loadMorePosts();
           }
       });
+=======
+      if (entries[0].isIntersecting) {
+        this.loadMorePosts();
+      }
+>>>>>>> 9d384aa154f05ca5a32cc05bbd120af31e98f54f
     };
     const observer = new IntersectionObserver(callback, options);
     observer.observe(this.$refs.observer);
@@ -228,5 +244,9 @@ PostList
 }
 .observer {
   height: 30px;
+<<<<<<< HEAD
+=======
+  background: green;
+>>>>>>> 9d384aa154f05ca5a32cc05bbd120af31e98f54f
 }
 </style>
