@@ -4,6 +4,7 @@
 
     <my-input
       class='full-width'
+      v-focus
       v-model='searchQuery'
       placeholder='Поиск...'
     />
@@ -42,16 +43,9 @@
       v-if='!isPostLoading' />
 
     <div v-else>Идет загрузка....</div>
-<<<<<<< HEAD
+    <div v-intersection="loadMorePosts" class='observer' ref='observer'></div>
+    
 
-    <div class='observer' ref='observer'></div>
-
-
-=======
-    <div ref='observer' class='observer'>
-
-    </div>
->>>>>>> 9d384aa154f05ca5a32cc05bbd120af31e98f54f
 <!--    <div class='page__wrapper'>-->
 <!--      <div-->
 <!--        v-for='pageNumber in totalPage'-->
@@ -157,20 +151,20 @@ export default {
   },
   mounted() {
     this.fetchPosts();
-    const options = {
-      rootMargin: '0px',
-      threshold: 1.0
-    }
-    const callback = (entries, observer) => {
+    // const options = {
+    //   rootMargin: '0px',
+    //   threshold: 1.0
+    // }
+    // const callback = (entries, observer) => {
 
-      entries.forEach(entry => {
-          if (entry.isIntersecting && this.page < this.totalPage) {
-            this.loadMorePosts();
-          }
-      });
-    };
-    const observer = new IntersectionObserver(callback, options);
-    observer.observe(this.$refs.observer);
+    //   entries.forEach(entry => {
+    //       if (entry.isIntersecting && this.page < this.totalPage) {
+    //         this.loadMorePosts();
+    //       }
+    //   });
+    // };
+    // const observer = new IntersectionObserver(callback, options);
+    // observer.observe(this.$refs.observer);
   },
   components: {
     PostForm, PostList, MyButton, MyDialog, MySelect,
