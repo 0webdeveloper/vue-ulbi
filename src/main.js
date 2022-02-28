@@ -7,8 +7,8 @@ import Directives from '@/Directives/'
 
 Vue.config.productionTip = false;
 
-Directives.forEach(element => {
-    Vue.directive(element.name, element);
+Directives.forEach(directive => {
+    Vue.directive(directive.name, directive);
 });
 
 // Vue.directive('intersection', Vintersection);

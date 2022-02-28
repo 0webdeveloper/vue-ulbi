@@ -1,5 +1,6 @@
 <template>
-    <div class='dialog' v-if='show' @click ='$emit("value", false)'>
+    <div class='dialog' v-if="show" @click.stop = "hideDialog">
+<!--    <div class='dialog' v-if='show' @click ='$emit("value", false)'>-->
       <div @click.stop class='dialog__content'>
         <slot></slot>
       </div>
@@ -7,8 +8,16 @@
 </template>
 
 <script>
+import toggleMixin from '@/mixins/toggleMixin'
+
 export default {
   name: 'my-dialog',
+  // mixins: [toggleMixin],
+  methods: {
+    hideDialog() {
+      this.$emit("value", false)
+    }
+  },
   props: {
     show: {
       type: Boolean,

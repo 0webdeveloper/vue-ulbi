@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '@/views/Home.vue'
 import PostIdPage from '@/views/PostIdPage'
+import HomeWithStore from '@/views/HomeWithStore'
 
 Vue.use(VueRouter)
 
@@ -23,6 +24,10 @@ const routes = [
     path: '/posts/:id',
     component: PostIdPage
   },
+  {
+    path: '/store',
+    component: HomeWithStore
+  }
 ]
 
 const router = new VueRouter({
